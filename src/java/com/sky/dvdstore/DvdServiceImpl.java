@@ -7,6 +7,16 @@ public class DvdServiceImpl implements DvdService {
 
     @Override
     public Dvd retrieveDvd(String dvdReference) throws DvdNotFoundException {
+        return getDvd(dvdReference);
+    }
+
+    @Override
+    public String getDvdSummary(String dvdReference) throws DvdNotFoundException {
+        getDvd(dvdReference);
+        return null;
+    }
+
+    private Dvd getDvd(String dvdReference) throws DvdNotFoundException {
         validateReference(dvdReference);
         final Dvd dvd = repository.retrieveDvd(dvdReference);
         validateDvd(dvd);
@@ -23,12 +33,6 @@ public class DvdServiceImpl implements DvdService {
         if(!dvdReference.startsWith(DVD_REFERENCE_PREFIX)) {
             throw new InvalidDvdReferenceException(dvdReference);
         }
-    }
-
-    @Override
-    public String getDvdSummary(String dvdReference) throws DvdNotFoundException {
-        validateReference(dvdReference);
-        return null;
     }
 
     public void setRepository(DvdRepository repository) {
