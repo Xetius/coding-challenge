@@ -42,4 +42,11 @@ public class DvdServiceImplTest {
         expectedException.expectMessage("Invalid DVD Reference INVALID-TEXT. DVD Reference must start with DVD-");
         dvdService.retrieveDvd(INVALID_DVD_REFERENCE);
     }
+
+    @Test
+    public void getDvdSummaryThrowsExceptionForInvalidId() throws Exception {
+        expectedException.expect(InvalidDvdReferenceException.class);
+        expectedException.expectMessage("Invalid DVD Reference INVALID-TEXT. DVD Reference must start with DVD-");
+        dvdService.getDvdSummary(INVALID_DVD_REFERENCE);
+    }
 }
