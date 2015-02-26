@@ -27,6 +27,7 @@ public class DvdServiceImpl implements DvdService {
 
     @Override
     public String getDvdSummary(String dvdReference) throws DvdNotFoundException {
+        validateReference(dvdReference);
         return null;
     }
 
