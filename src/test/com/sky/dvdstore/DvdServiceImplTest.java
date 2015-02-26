@@ -11,6 +11,7 @@ public class DvdServiceImplTest {
 
     private static final String VALID_DVD_REFERENCE = "DVD-TG423";
     private static final String UNKNOWN_DVD_REFERENCE = "DVD-999";
+    private static final String INVALID_DVD_REFERENCE = "INVALID-TEXT";
 
     private DvdServiceImpl dvdService;
 
@@ -33,5 +34,12 @@ public class DvdServiceImplTest {
     public void retrieveDvdThrowsExceptionForUnknownDvd() throws Exception {
         expectedException.expect(DvdNotFoundException.class);
         dvdService.retrieveDvd(UNKNOWN_DVD_REFERENCE);
+    }
+
+    @Test
+    public void retrieveDvdThrowsExceptionForInvalidId() throws Exception {
+        expectedException.expect(InvalidDvdReferenceException.class);
+        expectedException.expectMessage("Invalid DVD Reference INVALID-TEXT. DVD Reference must start with DVD-");
+        dvdService.retrieveDvd(INVALID_DVD_REFERENCE);
     }
 }

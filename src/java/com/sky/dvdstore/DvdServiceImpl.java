@@ -6,7 +6,15 @@ public class DvdServiceImpl implements DvdService {
 
     @Override
     public Dvd retrieveDvd(String dvdReference) throws DvdNotFoundException {
-        return repository.retrieveDvd(dvdReference);
+        final Dvd dvd = repository.retrieveDvd(dvdReference);
+        validateDvd(dvd);
+        return dvd;
+    }
+
+    private void validateDvd(Dvd dvd) throws DvdNotFoundException {
+        if (null == dvd) {
+            throw new DvdNotFoundException();
+        }
     }
 
     @Override
