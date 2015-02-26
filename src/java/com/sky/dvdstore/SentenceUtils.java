@@ -1,6 +1,11 @@
 package com.sky.dvdstore;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SentenceUtils {
+
+    private static final String REMOVE_TERMINATING_PUNCTUATION_REGEX = "^(.*?)\\p{Punct}*$";
 
     public static String limitWordCount(final String sentence, final int wordCount) {
         String[] words = sentence.split("\\s+");
@@ -21,7 +26,18 @@ public class SentenceUtils {
             separator = " ";
         }
 
-        return stringBuilder.toString();
+        String shorterSentence = stringBuilder.toString();
+
+        return stripTerminatingPunctuation(shorterSentence);
+    }
+
+    private static String stripTerminatingPunctuation(final String shorterSentence) {
+        Pattern pattern = Pattern.compile(REMOVE_TERMINATING_PUNCTUATION_REGEX);
+        Matcher matcher = pattern.matcher(shorterSentence);
+        if (matcher.matches()) {
+            return matcher.group(1);
+        }
+        return shorterSentence;
     }
 
     public static String limitWordCountWithSuffix(final String sentence, final int wordCount,

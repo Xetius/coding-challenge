@@ -48,4 +48,19 @@ public class SentenceUtilsTest {
             SentenceUtils.limitWordCountWithSuffix(sentence, maxWordCount, SUFFIX);
         assertEquals(expectedSentence, actualSentence);
     }
+
+    @Test
+    public void limitingSentenceLengthWithSuffixStripsFinalPunctuation() throws Exception {
+        final int maxWordCount = 10;
+        final String
+            sentence =
+            "one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve";
+        final String
+            expectedSentence =
+            "one, two, three, four, five, six, seven, eight, nine, ten...";
+        final String
+            actualSentence =
+            SentenceUtils.limitWordCountWithSuffix(sentence, maxWordCount, SUFFIX);
+        assertEquals(expectedSentence, actualSentence);
+    }
 }
