@@ -3,6 +3,9 @@ package com.sky.dvdstore;
 public class DvdServiceImpl implements DvdService {
 
     private static final String DVD_REFERENCE_PREFIX = "DVD-";
+    private static final int DVD_REVIEW_WORD_COUNT = 10;
+    private static final String DVD_REVIEW_SUFFIX = "...";
+
     private DvdRepository repository;
 
     @Override
@@ -17,7 +20,13 @@ public class DvdServiceImpl implements DvdService {
     }
 
     private String getSummary(Dvd dvd) {
-        return "[" + dvd.getReference() + "] " + dvd.getTitle() + " - " + dvd.getReview();
+        return "[" + dvd.getReference() + "] " + dvd.getTitle() + " - "
+               + getDvdReviewWithLimitedLength(dvd);
+    }
+
+    private String getDvdReviewWithLimitedLength(Dvd dvd) {
+        return SentenceUtils
+            .limitWordCountWithSuffix(dvd.getReview(), DVD_REVIEW_WORD_COUNT, DVD_REVIEW_SUFFIX);
     }
 
     private Dvd getDvd(String dvdReference) throws DvdNotFoundException {

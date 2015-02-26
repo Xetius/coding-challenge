@@ -12,6 +12,8 @@ public class DvdServiceImplTest {
     private static final String VALID_DVD_REFERENCE = "DVD-TG423";
     private static final String UNKNOWN_DVD_REFERENCE = "DVD-999";
     private static final String INVALID_DVD_REFERENCE = "INVALID-TEXT";
+    private static final String LONG_REVIEW_DVD_REFERENCE = "DVD-S765";
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
     private DvdServiceImpl dvdService;
@@ -58,6 +60,15 @@ public class DvdServiceImplTest {
     public void getDvdSummaryReturnsBuiltSummaryString() throws Exception {
         final String expectedSummary = "[DVD-TG423] Topgun - All action film";
         final String actualSummary = dvdService.getDvdSummary(VALID_DVD_REFERENCE);
+        assertEquals(expectedSummary, actualSummary);
+    }
+
+    @Test
+    public void getDvdSummaryReturnsSummaryWithReviewLimitedToTenWords() throws Exception {
+        final String
+            expectedSummary =
+            "[DVD-S765] Shrek - Big green monsters, they're just all the rage these days...";
+        final String actualSummary = dvdService.getDvdSummary(LONG_REVIEW_DVD_REFERENCE);
         assertEquals(expectedSummary, actualSummary);
     }
 }
