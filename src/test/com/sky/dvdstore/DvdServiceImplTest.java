@@ -49,8 +49,15 @@ public class DvdServiceImplTest {
     }
 
     @Test
-    public void getDvdSymmaryThrowsExceptionForUnknownDvd() throws Exception {
+    public void getDvdSummaryThrowsExceptionForUnknownDvd() throws Exception {
         expectedException.expect(DvdNotFoundException.class);
         dvdService.getDvdSummary(UNKNOWN_DVD_REFERENCE);
+    }
+
+    @Test
+    public void getDvdSummaryReturnsBuiltSummaryString() throws Exception {
+        final String expectedSummary = "[DVD-TG423] Topgun - All action film";
+        final String actualSummary = dvdService.getDvdSummary(VALID_DVD_REFERENCE);
+        assertEquals(expectedSummary, actualSummary);
     }
 }
